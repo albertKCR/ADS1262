@@ -1,7 +1,11 @@
 #ifndef ADS1262_H
 #define ADS1262_H
 
-// Register Adress
+#include <stdint.h>
+#include "usb_device.h"
+#include "stm32f4xx_hal.h"
+
+// Register Address
 #define POWER       0x01
 #define INTERFACE   0x02
 #define MODE0       0x03
@@ -42,6 +46,8 @@
 #define AIN8        0x08
 #define AIN9        0x09
 #define AINCOM      0x0A
+
+extern SPI_HandleTypeDef hspi1;
 
 void ADS1262_Init();
 void ADS1262_Select();

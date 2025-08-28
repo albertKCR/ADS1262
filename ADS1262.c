@@ -8,24 +8,24 @@ char charData[15];
 // Functions to select/deselect ADS1262
 void ADS1262_Select()
 {
-    HAL_GPIO_WritePin(ADS1262_CS_PORT, ADS1262_CS_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(ADS1262_CS_GPIO_Port, ADS1262_CS_Pin, GPIO_PIN_RESET);
 }
 
 void ADS1262_Deselect()
 {
-    HAL_GPIO_WritePin(ADS1262_CS_PORT, ADS1262_CS_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(ADS1262_CS_GPIO_Port, ADS1262_CS_Pin, GPIO_PIN_SET);
 }
 
 // Set START pin
 void ADS1262_START()
 {
-    HAL_GPIO_WritePin(ADS1262_START_PORT, ADS1262_START_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(ADS1262_START_GPIO_Port, ADS1262_START_Pin, GPIO_PIN_SET);
 }
 
 // Reset START pin
 void ADS1262_HARD_STOP()
 {
-    HAL_GPIO_WritePin(ADS1262_START_PORT, ADS1262_START_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(ADS1262_START_GPIO_Port, ADS1262_START_Pin, GPIO_PIN_RESET);
 }
 
 // SPI Transmit & Receive Complete Callback
@@ -86,7 +86,7 @@ uint32_t ADS1262_ReadData()
     uint8_t rxData[6]; // ADS1262 retorna 5 bytes: status + 4 bytes de ADC
     uint32_t adc_value = 0;
 
-    while (HAL_GPIO_ReadPin(ADS1262_DRDY_PORT, ADS1262_DRDY_Pin) == GPIO_PIN_SET);
+    while (HAL_GPIO_ReadPin(ADS1262_DRDY_GPIO_Port, ADS1262_DRDY_Pin) == GPIO_PIN_SET);
 
     ADS1262_Select();
 
@@ -116,11 +116,11 @@ uint32_t ADS1262_ReadData()
 // Function to Initialize ADS1262
 void ADS1262_Init()
 {
-    HAL_GPIO_WritePin(ADS1262_RESET_PORT, ADS1262_RESET_Pin, GPIO_PIN_SET); // Reset high
+    HAL_GPIO_WritePin(ADS1262_RESET_GPIO_Port, ADS1262_RESET_Pin, GPIO_PIN_SET); // Reset high
     HAL_Delay(10);
-    HAL_GPIO_WritePin(ADS1262_RESET_PORT, ADS1262_RESET_Pin, GPIO_PIN_RESET); // Reset low
+    HAL_GPIO_WritePin(ADS1262_RESET_GPIO_Port, ADS1262_RESET_Pin, GPIO_PIN_RESET); // Reset low
     HAL_Delay(10);
-    HAL_GPIO_WritePin(ADS1262_RESET_PORT, ADS1262_RESET_Pin, GPIO_PIN_SET); // Reset high again
+    HAL_GPIO_WritePin(ADS1262_RESET_GPIO_Port, ADS1262_RESET_Pin, GPIO_PIN_SET); // Reset high again
     // ADS1262_HARD_STOP();
     HAL_Delay(100);
     ADS1262_START();
